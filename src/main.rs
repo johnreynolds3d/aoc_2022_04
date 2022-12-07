@@ -11,7 +11,8 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut min2: u16;
     let mut max2: u16;
 
-    let mut score: u16 = 0;
+    let mut score1: u16 = 0;
+    let mut score2: u16 = 0;
 
     for line in lines {
         let v: Vec<_> = line.as_ref().unwrap().split([',', '-']).collect();
@@ -23,15 +24,22 @@ fn main() -> Result<(), Box<dyn Error>> {
 
         if (max1 - min1) + 1 >= (max2 - min2) + 1 {
             if min2 >= min1 && max2 <= max1 {
-                score += 1;
+                score1 += 1;
+            }
+            if ((min2 >= min1) && (min2 <= max1)) || ((max2 <= max1) && (max2 >= min1)) {
+                score2 += 1;
             }
         } else {
             if min1 >= min2 && max1 <= max2 {
-                score += 1;
+                score1 += 1;
+            }
+            if ((min1 >= min2) && (min1 <= max2)) || ((max1 <= max2) && (max1 >= min2)) {
+                score2 += 1;
             }
         }
     }
-    println!("Score: {}", score);
+    println!("One set is a subset in {} cases", score1);
+    println!("Some overlap exists in {} cases", score2);
 
     Ok(())
 }

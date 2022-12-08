@@ -23,19 +23,11 @@ fn main() -> Result<(), Box<dyn Error>> {
         max2 = v[3].parse().unwrap();
 
         if (max1 - min1) + 1 >= (max2 - min2) + 1 {
-            if min2 >= min1 && max2 <= max1 {
-                score1 += 1;
-            }
-            if ((min2 >= min1) && (min2 <= max1)) || ((max2 <= max1) && (max2 >= min1)) {
-                score2 += 1;
-            }
+            score1 += (min2 >= min1 && max2 <= max1) as u16;
+            score2 += ((min2 >= min1 && min2 <= max1) || (max2 <= max1 && max2 >= min1)) as u16;
         } else {
-            if min1 >= min2 && max1 <= max2 {
-                score1 += 1;
-            }
-            if ((min1 >= min2) && (min1 <= max2)) || ((max1 <= max2) && (max1 >= min2)) {
-                score2 += 1;
-            }
+            score1 += (min1 >= min2 && max1 <= max2) as u16;
+            score2 += ((min1 >= min2 && min1 <= max2) || (max1 <= max2 && max1 >= min2)) as u16;
         }
     }
     println!("One set is a subset in {} cases", score1);
